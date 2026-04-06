@@ -1,0 +1,130 @@
+{
+  "tracked_bounties": [
+    "degen:166",
+    "degen:167",
+    "degen:168",
+    "degen:169"
+  ],
+  "seen_claim_ids": {
+    "degen:166": [
+      41,
+      40,
+      38,
+      37,
+      36
+    ],
+    "degen:167": [
+      45,
+      42,
+      39
+    ],
+    "degen:168": [
+      44,
+      43
+    ],
+    "degen:169": [
+      47,
+      46
+    ]
+  },
+  "processed_winners": {
+    "degen:169": 46
+  },
+  "decision_casts": {
+    "degen:167": {
+      "hash": "0xe72947b3dcf46bf321ae9e3c15971f4bc56f4356",
+      "fid": 3199708,
+      "reason": "Selected based on relevance, quality, and authenticity.",
+      "context": {
+        "chain": "degen",
+        "bounty_id": 167
+      }
+    },
+    "degen:169": {
+      "hash": "0xa0cec871ed7c296c0b4f81930d83d89f927e1863",
+      "fid": 3199708,
+      "reason": "A view through the window fits the everyday snapshot prompt and seems like a simple real-life scene. The submission is brief but plausible, with no obvious signs of AI editing from the provided metadata alone. However, since only text metadata is available and no actual image/video is provided here, authenticity and quality can only be moderately assessed.",
+      "context": {
+        "chain": "degen",
+        "bounty_id": 169,
+        "claim_id": 46,
+        "claim_name": "View through my window",
+        "claim_description": "Any excuse to post a good view \ud83e\udd0d",
+        "claim_uri": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmNuqMiQng8TuEmZWAGsJzT8kuN76FiqoecHVrnHbiUWAD",
+        "content_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmSAEfJ6KRbGrA7cKGsark5vHLiY7iRTeUfAyKBHKeJb6D",
+        "content_kind": "metadata",
+        "score": {
+          "relevance": 8,
+          "quality": 6,
+          "authenticity": 7,
+          "reason": "A view through the window fits the everyday snapshot prompt and seems like a simple real-life scene. The submission is brief but plausible, with no obvious signs of AI editing from the provided metadata alone. However, since only text metadata is available and no actual image/video is provided here, authenticity and quality can only be moderately assessed.",
+          "total": 21
+        }
+      }
+    }
+  },
+  "reply_hashes_seen": [
+    "0x743ff06c203efcf9be81b092e9bf747a82f289dd",
+    "0x4e94b17d438c080265a6f3ad2ebebf4bbc81cb46",
+    "0xee7688aac70c790b09b6f803b9e62376b791161b",
+    "0x4df103b549c5493ba7439e4e081e1800fe7330b5",
+    "0xce967d68a1ee6b141fd9608274aeddc665ef7da1",
+    "0x57ec49a0c56141a1d3594a923b59c274fa5c5d3b",
+    "0x8c45093d0437bcd4616e6caa8def1b58f23cec75"
+  ],
+  "reasoning": {
+    "degen:168": {
+      "chain": "degen",
+      "bounty_id": 168,
+      "claim_id": 43,
+      "claim_name": "First Music Studio",
+      "claim_description": "Not conventionally cozy but still cozy.",
+      "claim_uri": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmQCFQdXk9QvTKo76XuhvY1fydsfXsmEB6PnfRES2XmMXb",
+      "content_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmNrVgdyCFqHfY4dryyJ1PLf5N1fERL4sM5BTvwm1godWN",
+      "content_kind": "metadata",
+      "score": {
+        "relevance": 3,
+        "quality": 2,
+        "authenticity": 4,
+        "reason": "The claim mentions a music studio, which could be a personal spot, but no actual photo or descriptive evidence is provided. The metadata is too sparse to judge quality, and authenticity cannot be verified from the text alone.",
+        "total": 9
+      }
+    },
+    "degen:169": {
+      "chain": "degen",
+      "bounty_id": 169,
+      "claim_id": 46,
+      "claim_name": "View through my window",
+      "claim_description": "Any excuse to post a good view \ud83e\udd0d",
+      "claim_uri": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmNuqMiQng8TuEmZWAGsJzT8kuN76FiqoecHVrnHbiUWAD",
+      "content_url": "https://beige-impossible-dragon-883.mypinata.cloud/ipfs/QmSAEfJ6KRbGrA7cKGsark5vHLiY7iRTeUfAyKBHKeJb6D",
+      "content_kind": "metadata",
+      "score": {
+        "relevance": 8,
+        "quality": 6,
+        "authenticity": 7,
+        "reason": "A view through the window fits the everyday snapshot prompt and seems like a simple real-life scene. The submission is brief but plausible, with no obvious signs of AI editing from the provided metadata alone. However, since only text metadata is available and no actual image/video is provided here, authenticity and quality can only be moderately assessed.",
+        "total": 21
+      }
+    }
+  },
+  "vote_submissions": {
+    "degen:169": {
+      "claim_id": 46,
+      "claim_title": "View through my window",
+      "score": {
+        "relevance": 8,
+        "quality": 6,
+        "authenticity": 7,
+        "reason": "A view through the window fits the everyday snapshot prompt and seems like a simple real-life scene. The submission is brief but plausible, with no obvious signs of AI editing from the provided metadata alone. However, since only text metadata is available and no actual image/video is provided here, authenticity and quality can only be moderately assessed.",
+        "total": 21
+      },
+      "tx_hash": "767b74a43312c18a9268d2c4328415aa3dd13e5f6cb2046565ad8f4018377e8c",
+      "submitted_at": 1775425869
+    }
+  },
+  "resolved_votes": {},
+  "last_bounty_spec": null,
+  "chain_rotation_index": 0,
+  "last_reply_time": 1775430884.2977085
+}

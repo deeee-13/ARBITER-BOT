@@ -1,0 +1,5 @@
+web3
+google-genai
+python-dotenv
+requests
+pypdf
