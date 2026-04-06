@@ -1186,55 +1186,84 @@ def process_bounty(state: Dict[str, Any], key: str) -> None:
 
 
 def process_vote_resolutions(state: Dict[str, Any]) -> None:
-    for key in list(state.get("tracked_bounties", [])):
+    vote_submissions = state.get("vote_submissions", {}) or {}
+
+    if not vote_submissions:
+        print("No pending vote submissions found.")
+        return
+
+    for key, vote_info in vote_submissions.items():
         chain, bounty_id = parse_bounty_key(key)
+
         if chain not in CHAIN_CTX:
+            print(f"[{chain}] Chain not active for {key}, skipping vote resolution.")
             continue
+
         ctx = CHAIN_CTX[chain]
 
-        if key not in state.get("vote_submissions", {}):
-            continue
-
         if state.get("resolved_votes", {}).get(key):
+            print(f"[{chain}] Vote already resolved for bounty #{bounty_id}.")
             continue
 
         try:
-            current_vote_claim = int(contract_call(ctx["poidh"].functions.bountyCurrentVotingClaim(int(bounty_id))))
+            print(f"[{chain}] Checking vote resolution for bounty #{bounty_id}...")
+
+            current_vote_claim = int(
+                contract_call(ctx["poidh"].functions.bountyCurrentVotingClaim(int(bounty_id)))
+            )
+            print(f"[{chain}] current_vote_claim = {current_vote_claim}")
+
             if current_vote_claim == 0:
+                print(f"[{chain}] No active vote found for bounty #{bounty_id}.")
                 continue
 
-            _yes_w, _no_w, deadline = contract_call(ctx["poidh"].functions.bountyVotingTracker(int(bounty_id)))
+            yes_w, no_w, deadline = contract_call(
+                ctx["poidh"].functions.bountyVotingTracker(int(bounty_id))
+            )
+            print(f"[{chain}] yes={yes_w}, no={no_w}, deadline={deadline}, now={int(time.time())}")
 
-            if int(deadline) and int(time.time()) >= int(deadline):
-                tx_hash = resolve_vote(ctx, int(bounty_id))
-                print(f"[{chain}] Resolved vote for bounty #{bounty_id}: {tx_hash}")
+            if not int(deadline):
+                print(f"[{chain}] No valid deadline for bounty #{bounty_id}.")
+                continue
 
-                vote_info = state["vote_submissions"][key]
-                score = vote_info["score"]
+            if int(time.time()) < int(deadline):
+                print(f"[{chain}] Vote still ongoing for bounty #{bounty_id}.")
+                continue
 
-                post_text = format_winner_post(
-                    chain,
-                    int(bounty_id),
-                    int(vote_info["claim_id"]),
-                    vote_info["claim_title"],
-                    score,
-                )
-                post_text += f"\nTransaction:\n{get_tx_link(chain, tx_hash)}"
-                cast = post_to_farcaster(post_text)
+            print(f"[{chain}] Vote ended. Resolving bounty #{bounty_id}...")
+            tx_hash = resolve_vote(ctx, int(bounty_id))
+            print(f"[{chain}] Resolved vote for bounty #{bounty_id}: {tx_hash}")
 
-                if cast and cast.get("cast"):
-                    state.setdefault("decision_casts", {})[key] = {
-                        "hash": cast["cast"].get("hash"),
-                        "fid": cast["cast"].get("author", {}).get("fid"),
-                        "reason": score["reason"],
-                        "context": state.get("reasoning", {}).get(key, {}),
-                    }
+            score = vote_info.get("score", {})
+            claim_id = int(vote_info.get("claim_id", 0))
+            claim_title = vote_info.get("claim_title", f"Claim #{claim_id}")
 
-                state.setdefault("resolved_votes", {})[key] = {
-                    "tx_hash": tx_hash,
-                    "resolved_at": int(time.time()),
+            post_text = format_winner_post(
+                chain,
+                int(bounty_id),
+                claim_id,
+                claim_title,
+                score,
+            )
+            post_text += f"\nTransaction:\n{get_tx_link(chain, tx_hash)}"
+
+            cast = post_to_farcaster(post_text)
+
+            if cast and cast.get("cast"):
+                state.setdefault("decision_casts", {})[key] = {
+                    "hash": cast["cast"].get("hash"),
+                    "fid": cast["cast"].get("author", {}).get("fid"),
+                    "reason": score.get("reason", ""),
+                    "context": state.get("reasoning", {}).get(key, {}),
                 }
-                save_state(state)
+
+            state.setdefault("resolved_votes", {})[key] = {
+                "tx_hash": tx_hash,
+                "resolved_at": int(time.time())
+            }
+
+            save_state(state)
+            return
 
         except Exception as e:
             print(f"[{chain}] Vote resolution check failed for bounty #{bounty_id}: {e}")
