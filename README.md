@@ -250,7 +250,7 @@ The bot has successfully:
 - posted decisions publicly  
 
 Farcaster Profile:
-https://farcaster.xyz/poidh-bot
+https://farcaster.xyz/arbiterbot.eth
 
 ---
 
